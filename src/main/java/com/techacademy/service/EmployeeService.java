@@ -139,4 +139,9 @@ public ErrorKinds update(String code, Employee formEmployee) {
  employee.setUpdatedAt(LocalDateTime.now());
  employeeRepository.save(employee);
  return ErrorKinds.SUCCESS;
+}
+
+public Employee getEmployee(String username) {
+    // TODO 自動生成されたメソッド・スタブ
+    return null;
 }}
