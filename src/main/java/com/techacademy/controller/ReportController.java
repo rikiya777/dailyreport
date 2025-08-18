@@ -47,8 +47,11 @@ public class ReportController {
     // 新規登録画面
     @GetMapping("/add")
     public String create(@AuthenticationPrincipal UserDetail userDetail, Model model) {
-        model.addAttribute("report", new Report());
-        model.addAttribute("employee", userDetail.getEmployee());
+        Employee employee = userDetail.getEmployee();
+        Report report = new Report();
+        report.setEmployee(employee); // ← これが重要！
+
+        model.addAttribute("report", report);
         return "reports/add";
     }
 

@@ -25,12 +25,12 @@
                                 </div>
 
                                 <!-- 氏名 -->
-                                <div class="mb-3">
-                                    <label class="form-label" for="employeeName">氏名</label>
-                                    <input type="text" class="form-control" id="employeeName"
-                                           th:value="${report.employee != null ? report.employee.name : ''}">
-                                </div>
-
+                               <div class="mb-3">
+                                   <label class="form-label">氏名</label>
+                                   <p class="form-control-plaintext">
+                                   <span th:text="${report.employee != null ? report.employee.name : ''}"></span>
+                                   </p>
+                               </div>
                                 <!-- タイトル -->
                                 <div class="mb-3">
                                     <label class="form-label" for="title">タイトル</label>

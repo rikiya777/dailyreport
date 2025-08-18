@@ -21,9 +21,12 @@
                                     <span th:errors="*{reportDate}" class="text-danger"></span>
                                     <span th:if="${dateError} != null" th:text="${dateError}" class="text-danger"></span>
                                 </div>
+                                <!-- 氏名 -->
                                 <div class="mb-3">
-                                    <label class="form-label" for="employeeName">氏名</label>
-                                    <input type="text" class="form-control" id="employeeName" th:value="${employee.name}" >
+                                 <label class="form-label">氏名</label>
+                                 <p class="form-control-plaintext">
+                                 <span th:text="${report.employee != null ? report.employee.name : ''}"></span>
+                                  </p>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="title">タイトル</label>
