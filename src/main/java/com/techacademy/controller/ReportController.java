@@ -59,12 +59,14 @@ public class ReportController {
 
         if (res.hasErrors()) {
             model.addAttribute("employee", employee);
+            model.addAttribute("report", report);  // 追加
             return "reports/add";
         }
 
         if (!reportService.save(report, employee)) {
             model.addAttribute("dateError", "既に登録されている日付です");
             model.addAttribute("employee", employee);
+            model.addAttribute("report", report);  // 追加
             return "reports/add";
         }
 
@@ -82,16 +84,26 @@ public class ReportController {
 
     // 更新処理
     @PostMapping("/{id}/update")
-    public String update(@AuthenticationPrincipal UserDetail userDetail, @PathVariable Integer id, @Validated Report report, BindingResult res, Model model) {
-        Employee employee = userDetail.getEmployee();
+    public String update(@AuthenticationPrincipal UserDetail userDetail,
+                         @PathVariable Integer id,
+                         @Validated Report report,
+                         BindingResult res,
+                         Model model) {
 
+        Report existingReport = reportService.findById(id);
+        if (existingReport == null) return "redirect:/reports";
+
+        // エラーがある場合は既存の社員情報を使って表示
         if (res.hasErrors()) {
+            report.setEmployee(existingReport.getEmployee()); // ← ここが重要
             model.addAttribute("report", report);
             return "reports/update";
         }
 
-        if (!reportService.update(id, report, employee)) {
+        // 更新チェック（同日重複など）
+        if (!reportService.update(id, report, existingReport.getEmployee())) {
             model.addAttribute("dateError", "既に登録されている日付です");
+            report.setEmployee(existingReport.getEmployee());
             model.addAttribute("report", report);
             return "reports/update";
         }

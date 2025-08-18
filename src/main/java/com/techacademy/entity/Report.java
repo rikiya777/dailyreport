@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -24,6 +25,7 @@ public class Report {
     private Integer id;
 
     // 日付
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "report_date", nullable = false)
     @NotNull(message = "値を入力してください")
     private LocalDate reportDate;
