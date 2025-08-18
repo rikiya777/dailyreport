@@ -79,5 +79,7 @@ public class ReportService {
             report.setUpdatedAt(LocalDateTime.now());
             reportRepository.save(report);
         }
+    }public List<Report> findByEmployee(Employee employee) {
+        return reportRepository.findByEmployeeAndDeleteFlgFalseOrderByReportDateDesc(employee);
     }
 }
